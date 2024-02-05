@@ -1,4 +1,4 @@
-# Finian's fully-functioning Web-based Workday Scheduler (on the Web!)
+# Finian's fully-functioning Workday Scheduler (on the Web!)
 
 ![image](https://github.com/Darkvanilla22/workday-scheduler/assets/53369798/3fb48f22-c1cf-43aa-96d5-e06f99a3ae89)
 
