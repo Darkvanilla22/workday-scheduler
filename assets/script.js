@@ -40,7 +40,7 @@ $(function () {
 
   // Displaying the current date in the header
   function displayCurrentDate() {
-    $("#currentDay").text(dayjs().format("MMMM D, YYYY"));
+    $("#currentDay").text(dayjs().format("dddd, MMMM D, YYYY"));
   }
 
   // Initial setup
