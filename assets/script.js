@@ -1,42 +1,54 @@
 $(function () {
-  $(".saveBtn").on("click", function () {
-
-      var timeBlockId = $(this).closest(".time-block").attr("id");
-
-
-      var userInput = $(this).siblings(".description").val();
-
-
-      localStorage.setItem(timeBlockId, userInput);
+  $(".container-lg").on("click", ".saveBtn", function () {
+    var timeBlockId = $(this).closest(".time-block").attr("id");
+    var userInput = $(this).siblings(".description").val();
+    localStorage.setItem(timeBlockId, userInput);
   });
 
 
-  $(".time-block").each(function () {
-      var currentHour = dayjs().hour();
+  function updateColors() {
+    var currentHour = dayjs().hour();
+
+    $(".time-block").each(function () {
       var timeBlockHour = parseInt($(this).attr("id").split("-")[1]);
 
       if (timeBlockHour < currentHour) {
-          $(this).addClass("past");
+        $(this).addClass("past");
+        $(this).removeClass("present future");
       } else if (timeBlockHour === currentHour) {
-          $(this).removeClass("past");
-          $(this).addClass("present");
+        $(this).addClass("present");
+        $(this).removeClass("past future");
       } else {
-          $(this).removeClass("past");
-          $(this).removeClass("present");
-          $(this).addClass("future");
+        $(this).addClass("future");
+        $(this).removeClass("past present");
       }
-  });
+    });
+  }
 
- 
-  $(".time-block").each(function () {
+
+  function loadEvents() {
+    $(".time-block").each(function () {
       var timeBlockId = $(this).attr("id");
       var savedUserInput = localStorage.getItem(timeBlockId);
 
       if (savedUserInput) {
-          $(this).find(".description").val(savedUserInput);
+        $(this).find(".description").val(savedUserInput);
       }
-  });
+    });
+  }
 
 
-  $("#currentDay").text(dayjs().format("MMMM D, YYYY"));
+  function displayCurrentDate() {
+    $("#currentDay").text(dayjs().format("MMMM D, YYYY"));
+  }
+
+  // Initial setup
+  displayCurrentDate();
+  loadEvents();
+  updateColors();
+
+
+  setInterval(function () {
+    updateColors();
+  }, 60000);
 });
